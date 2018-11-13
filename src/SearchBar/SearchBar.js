@@ -1,16 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { observer, inject } from 'mobx-react';
+import ViewResults from '../ViewResults/ViewResults';
 import './SearchBar.css';
+import '../bootstrap.css';
 
-class SearchBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  };
-    }
-    render() {
-        return (
-            <input type = 'text'/>
-        );
-    }
+const SearchBar = (props) => {
+    
+    return (
+        <div className='search-box-wrapper'>
+            <input className = 'search-box-wrapper__input input-group' 
+                    type = 'text' 
+                    placeholder='Search City...'
+                    onChange={props.store.updateSearchedCity}
+                    />
+            <ViewResults city={props.store.searchedCity}/>
+        </div>
+    );   
 }
 
-export default SearchBar;
+export default inject('store')(observer(SearchBar));
